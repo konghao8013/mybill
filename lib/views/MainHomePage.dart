@@ -82,7 +82,7 @@ class _MainHomePageState extends State<MainHomePage> {
                       context,
                       new MaterialPageRoute(
                           builder: (context) =>
-                              new BillDetailPage(range[0], range[1])));
+                              new BillDetailPage("今日账单", range[0], range[1])));
                 },
               ),
               FlatButton(
@@ -95,10 +95,12 @@ class _MainHomePageState extends State<MainHomePage> {
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(0.0)),
                 onPressed: () {
-                  Toast.toast(
-                    context,
-                    msg: '我还没做哈哈',
-                  );
+                  var range = DateTimeHelper.getToMonthRange();
+                  Navigator.push(
+                      context,
+                      new MaterialPageRoute(
+                          builder: (context) =>
+                              new BillDetailPage("本月账单", range[0], range[1])));
                 },
               ),
               FlatButton(

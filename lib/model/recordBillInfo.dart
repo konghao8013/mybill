@@ -13,7 +13,7 @@ class RecordBillInfo {
     map["memo"] = memo;
     map["typeId"] = typeId;
     map["price"] = price;
-    map["createTime"] =DateFormat('yyyy-MM-dd – kk:mm').format(createTime);
+    map["createTime"] =DateFormat('yyyy-MM-dd kk:mm:ss').format(createTime);
     return map;
   }
 
@@ -25,7 +25,8 @@ class RecordBillInfo {
     record.typeId = map["typeId"];
     record.price = map["price"];
     if (map["createTime"] != null) {
-      record.createTime = DateFormat('yyyy-MM-dd – kk:mm').parse(map["createTime"]);
+      
+      record.createTime = DateFormat('yyyy-MM-dd kk:mm:ss').parse(map["createTime"]);
     }
 
     return record;

@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/services.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:sqflite/sqflite.dart';
 
 class DBHelper {
   static getDBPath() async {
@@ -47,5 +48,31 @@ class DBHelper {
       print(e);
     }
     return dirPath;
+  }
+
+  static Future<List<Map<String, dynamic>>> rawQuery(String sql,
+      [List<dynamic> arguments]) async {
+    var dbPath = await DBHelper.getDBPath();
+    var db = await openDatabase(dbPath);
+    var rel = await db.rawQuery(sql, arguments);
+    var list = rel.toList();
+    db.close();
+    return list;
+  }
+
+  static Future<int> rawDelete(String sql, [List<dynamic> arguments]) async {
+    var dbPath = await DBHelper.getDBPath();
+    var db = await openDatabase(dbPath);
+    var rel = await db.rawDelete(sql, arguments);
+    db.close();
+    return rel;
+  }
+
+  static Future<int> insert(String tableName, Map<String, dynamic> map) async {
+    var dbPath = await DBHelper.getDBPath();
+    var db = await openDatabase(dbPath);
+    var rel = await db.insert(tableName, map);
+    db.close();
+    return rel;
   }
 }
